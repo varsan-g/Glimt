@@ -54,12 +54,6 @@ jobs:
           - label: Windows
             runner: windows-latest
             args: ''
-          - label: macOS (Apple Silicon)
-            runner: macos-latest
-            args: '--target aarch64-apple-darwin'
-          - label: macOS (Intel)
-            runner: macos-latest
-            args: '--target x86_64-apple-darwin'
           - label: Linux
             runner: ubuntu-22.04
             args: ''
@@ -70,8 +64,6 @@ jobs:
       - uses: oven-sh/setup-bun@v2
 
       - uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: ${{ matrix.label == 'macOS (Intel)' && 'x86_64-apple-darwin' || matrix.label == 'macOS (Apple Silicon)' && 'aarch64-apple-darwin' || '' }}
 
       - name: Install system dependencies (Linux)
         if: runner.os == 'Linux'
