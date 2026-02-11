@@ -8,7 +8,12 @@ let simulateMessage: (data: EmbeddingResponse) => void
 let embedForStorage: (id: string, text: string) => Promise<number[]>
 let embedForQuery: (text: string) => Promise<number[]>
 let preloadEmbeddingModel: () => void
-let embeddingLifecycle: { setError: ReturnType<typeof vi.fn>; setProgress: ReturnType<typeof vi.fn>; setReady: ReturnType<typeof vi.fn>; startLoading: ReturnType<typeof vi.fn> }
+let embeddingLifecycle: {
+  setError: ReturnType<typeof vi.fn>
+  setProgress: ReturnType<typeof vi.fn>
+  setReady: ReturnType<typeof vi.fn>
+  startLoading: ReturnType<typeof vi.fn>
+}
 
 // Mock model-lifecycle before any imports resolve it
 vi.mock('@/lib/ai/model-lifecycle', () => ({

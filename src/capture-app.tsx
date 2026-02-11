@@ -72,11 +72,7 @@ export function CaptureApp() {
           // Reset editor on focus so it's clean for a new idea
           setAutoRecord(false)
           setEditorKey((k) => k + 1)
-        } else if (
-          !isRecordingRef.current &&
-          !isSavingRef.current &&
-          !isDraggingRef.current
-        ) {
+        } else if (!isRecordingRef.current && !isSavingRef.current && !isDraggingRef.current) {
           // Debounce hide — resize/move events cancel this if the window is still active
           blurTimeoutRef.current = setTimeout(() => {
             blurTimeoutRef.current = null

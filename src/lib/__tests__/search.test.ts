@@ -77,9 +77,7 @@ describe('FTS search', () => {
     expect(results[1].id).toBe('fts-2')
 
     // Verify the SQL calls the FTS table
-    expect(mockSelect).toHaveBeenCalledWith(expect.stringContaining('fts_ideas MATCH'), [
-      'meeting',
-    ])
+    expect(mockSelect).toHaveBeenCalledWith(expect.stringContaining('fts_ideas MATCH'), ['meeting'])
   })
 
   it('maps snake_case columns to camelCase idea fields', async () => {
@@ -157,9 +155,7 @@ describe('semantic search', () => {
 
     mockSelect.mockImplementation((sql: string) => {
       if (sql.includes('embeddings')) {
-        return Promise.resolve([
-          { idea_id: 'id-1', dims: 2, vector: serializeEmbedding([1, 0]) },
-        ])
+        return Promise.resolve([{ idea_id: 'id-1', dims: 2, vector: serializeEmbedding([1, 0]) }])
       }
       if (sql.includes('ideas')) {
         return Promise.resolve([makeRow({ id: 'id-1' })])

@@ -220,11 +220,7 @@ export function Dashboard({ onSettings }: DashboardProps) {
               onFocus={() => setIsSearchFocused(true)}
               onBlur={() => setIsSearchFocused(false)}
               placeholder={
-                showArchive
-                  ? 'Search archived ideas...'
-                  : isSearchFocused
-                    ? 'Search...'
-                    : undefined
+                showArchive ? 'Search archived ideas...' : isSearchFocused ? 'Search...' : undefined
               }
               className="pl-8 pr-8"
             />

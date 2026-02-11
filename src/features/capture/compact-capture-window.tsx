@@ -215,10 +215,7 @@ export function CompactCaptureWindow({
   }
 
   return (
-    <div
-      className="glass-capture flex h-screen flex-col px-5 pb-4"
-      onClick={handleContainerClick}
-    >
+    <div className="glass-capture flex h-screen flex-col px-5 pb-4" onClick={handleContainerClick}>
       {/* Drag handle */}
       <div
         onMouseDown={handleDragHandleMouseDown}
