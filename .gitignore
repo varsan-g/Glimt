@@ -1,0 +1,17 @@
+node_modules/
+dist/
+src-tauri/target/
+.env
+.env.local
+*.db
+*.db-journal
+*.db-wal
+models/
+.transformers_cache/
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.claude/
+.mcp.json
+*.md

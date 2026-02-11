@@ -1,0 +1,743 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.147 0.004 49.25);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.147 0.004 49.25);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.147 0.004 49.25);
+  --primary: oklch(0.67 0.16 58);
+  --primary-foreground: oklch(0.99 0.02 95);
+  --secondary: oklch(0.967 0.001 286.375);
+  --secondary-foreground: oklch(0.21 0.006 285.885);
+  --muted: oklch(0.97 0.001 106.424);
+  --muted-foreground: oklch(0.553 0.013 58.071);
+  --accent: oklch(0.97 0.001 106.424);
+  --accent-foreground: oklch(0.216 0.006 56.043);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.923 0.003 48.717);
+  --input: oklch(0.923 0.003 48.717);
+  --ring: oklch(0.709 0.01 56.259);
+  --chart-1: oklch(0.88 0.15 92);
+  --chart-2: oklch(0.77 0.16 70);
+  --chart-3: oklch(0.67 0.16 58);
+  --chart-4: oklch(0.56 0.15 49);
+  --chart-5: oklch(0.47 0.12 46);
+  --sidebar: oklch(0.985 0.001 106.423);
+  --sidebar-foreground: oklch(0.147 0.004 49.25);
+  --sidebar-primary: oklch(0.67 0.16 58);
+  --sidebar-primary-foreground: oklch(0.99 0.02 95);
+  --sidebar-accent: oklch(0.97 0.001 106.424);
+  --sidebar-accent-foreground: oklch(0.216 0.006 56.043);
+  --sidebar-border: oklch(0.923 0.003 48.717);
+  --sidebar-ring: oklch(0.709 0.01 56.259);
+}
+
+.dark {
+  --background: oklch(0.147 0.004 49.25);
+  --foreground: oklch(0.985 0.001 106.423);
+  --card: oklch(0.216 0.006 56.043);
+  --card-foreground: oklch(0.985 0.001 106.423);
+  --popover: oklch(0.216 0.006 56.043);
+  --popover-foreground: oklch(0.985 0.001 106.423);
+  --primary: oklch(0.77 0.16 70);
+  --primary-foreground: oklch(0.28 0.07 46);
+  --secondary: oklch(0.274 0.006 286.033);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.268 0.007 34.298);
+  --muted-foreground: oklch(0.709 0.01 56.259);
+  --accent: oklch(0.268 0.007 34.298);
+  --accent-foreground: oklch(0.985 0.001 106.423);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.553 0.013 58.071);
+  --chart-1: oklch(0.88 0.15 92);
+  --chart-2: oklch(0.77 0.16 70);
+  --chart-3: oklch(0.67 0.16 58);
+  --chart-4: oklch(0.56 0.15 49);
+  --chart-5: oklch(0.47 0.12 46);
+  --sidebar: oklch(0.216 0.006 56.043);
+  --sidebar-foreground: oklch(0.985 0.001 106.423);
+  --sidebar-primary: oklch(0.77 0.16 70);
+  --sidebar-primary-foreground: oklch(0.28 0.07 46);
+  --sidebar-accent: oklch(0.268 0.007 34.298);
+  --sidebar-accent-foreground: oklch(0.985 0.001 106.423);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.553 0.013 58.071);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family:
+      'Geist',
+      system-ui,
+      -apple-system,
+      'Segoe UI',
+      sans-serif;
+  }
+  /* Transparent background for capture window so rounded corners show through */
+  html.capture-transparent,
+  html.capture-transparent body {
+    background: transparent !important;
+  }
+  /* Hide native scrollbar — Radix ScrollArea provides its own */
+  [data-slot='scroll-area-viewport'] {
+    scrollbar-width: none; /* Firefox */
+  }
+  [data-slot='scroll-area-viewport']::-webkit-scrollbar {
+    display: none; /* Chromium / WebView2 */
+  }
+}
+
+/* ── Liquid glass capture window ───────────────────────── */
+.glass-capture {
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+  background: linear-gradient(180deg, oklch(1 0 0 / 92%) 0%, oklch(0.98 0 0 / 88%) 100%);
+  box-shadow:
+    0 4px 16px oklch(0 0 0 / 8%),
+    0 1px 4px oklch(0 0 0 / 5%),
+    inset 0 1px 0 oklch(1 0 0 / 60%),
+    inset 0 -1px 0 oklch(0 0 0 / 3%);
+  border: 1px solid oklch(0 0 0 / 8%);
+}
+
+.dark .glass-capture {
+  background: linear-gradient(180deg, oklch(0.22 0 0 / 95%) 0%, oklch(0.18 0 0 / 92%) 100%);
+  box-shadow:
+    0 4px 16px oklch(0 0 0 / 20%),
+    0 1px 4px oklch(0 0 0 / 12%),
+    inset 0 1px 0 oklch(1 0 0 / 8%),
+    inset 0 -1px 0 oklch(0 0 0 / 10%);
+  border-color: oklch(1 0 0 / 8%);
+}
+
+/* Specular highlight along top edge */
+.glass-capture-highlight {
+  position: absolute;
+  top: 0;
+  left: 24px;
+  right: 24px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    oklch(1 0 0 / 50%) 30%,
+    oklch(1 0 0 / 70%) 50%,
+    oklch(1 0 0 / 50%) 70%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.dark .glass-capture-highlight {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    oklch(1 0 0 / 12%) 30%,
+    oklch(1 0 0 / 20%) 50%,
+    oklch(1 0 0 / 12%) 70%,
+    transparent 100%
+  );
+}
+
+/* Editor inside glass — no border, transparent */
+.glass-editor {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.glass-editor:focus-within {
+  ring: none !important;
+  box-shadow: none !important;
+}
+
+/* Mic button — frosted pill */
+.glass-mic-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid oklch(0 0 0 / 6%);
+  background: oklch(0.96 0 0 / 80%);
+  color: oklch(0.4 0 0);
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.glass-mic-btn:hover {
+  background: oklch(0.93 0 0 / 90%);
+  box-shadow: 0 1px 4px oklch(0 0 0 / 8%);
+}
+
+.glass-mic-btn:active {
+  transform: scale(0.95);
+}
+
+.glass-mic-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.dark .glass-mic-btn {
+  border-color: oklch(1 0 0 / 8%);
+  background: oklch(0.28 0 0 / 80%);
+  color: oklch(0.75 0 0);
+}
+
+.dark .glass-mic-btn:hover {
+  background: oklch(0.32 0 0 / 90%);
+}
+
+/* Mic button — small variant for status bar */
+.glass-mic-btn-sm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 1px solid oklch(0 0 0 / 6%);
+  background: oklch(0.96 0 0 / 80%);
+  color: oklch(0.4 0 0);
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.glass-mic-btn-sm:hover {
+  background: oklch(0.93 0 0 / 90%);
+  box-shadow: 0 1px 4px oklch(0 0 0 / 8%);
+}
+
+.glass-mic-btn-sm:active {
+  transform: scale(0.95);
+}
+
+.glass-mic-btn-sm:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.dark .glass-mic-btn-sm {
+  border-color: oklch(1 0 0 / 8%);
+  background: oklch(0.28 0 0 / 80%);
+  color: oklch(0.75 0 0);
+}
+
+.dark .glass-mic-btn-sm:hover {
+  background: oklch(0.32 0 0 / 90%);
+}
+
+/* Save button — frosted pill, primary accent */
+.glass-save-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 28px;
+  padding: 0 10px 0 12px;
+  border-radius: 8px;
+  border: 1px solid oklch(0.67 0.16 58 / 30%);
+  background: oklch(0.67 0.16 58 / 12%);
+  color: oklch(0.55 0.14 55);
+  font-size: 12px;
+  font-weight: 550;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.glass-save-btn:hover {
+  background: oklch(0.67 0.16 58 / 22%);
+  border-color: oklch(0.67 0.16 58 / 45%);
+  box-shadow: 0 1px 4px oklch(0.67 0.16 58 / 10%);
+}
+
+.glass-save-btn:active {
+  transform: scale(0.96);
+}
+
+.glass-save-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.dark .glass-save-btn {
+  border-color: oklch(0.77 0.16 70 / 25%);
+  background: oklch(0.77 0.16 70 / 10%);
+  color: oklch(0.77 0.14 68);
+}
+
+.dark .glass-save-btn:hover {
+  background: oklch(0.77 0.16 70 / 20%);
+  border-color: oklch(0.77 0.16 70 / 40%);
+  box-shadow: 0 1px 4px oklch(0.77 0.16 70 / 10%);
+}
+
+/* Recording dot */
+.glass-recording-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: oklch(0.577 0.245 27.325);
+  animation: recording-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes recording-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.85);
+  }
+}
+
+/* Hint text */
+.glass-hint-text {
+  font-size: 11px;
+  color: oklch(0.556 0 0 / 60%);
+  letter-spacing: 0.01em;
+}
+
+.glass-hint-text kbd {
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 500;
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: oklch(0 0 0 / 4%);
+  border: 1px solid oklch(0 0 0 / 6%);
+}
+
+.dark .glass-hint-text {
+  color: oklch(0.708 0 0 / 50%);
+}
+
+.dark .glass-hint-text kbd {
+  background: oklch(1 0 0 / 5%);
+  border-color: oklch(1 0 0 / 8%);
+}
+
+/* ── Floating recording indicator pill ──────────────── */
+.glass-indicator {
+  position: relative;
+  overflow: hidden;
+  width: 240px;
+  height: 48px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, oklch(1 0 0 / 92%) 0%, oklch(0.98 0 0 / 88%) 100%);
+  box-shadow:
+    0 4px 16px oklch(0 0 0 / 8%),
+    0 1px 4px oklch(0 0 0 / 5%),
+    inset 0 1px 0 oklch(1 0 0 / 60%),
+    inset 0 -1px 0 oklch(0 0 0 / 3%);
+  border: 1px solid oklch(0 0 0 / 8%);
+}
+
+.dark .glass-indicator {
+  background: linear-gradient(180deg, oklch(0.22 0 0 / 95%) 0%, oklch(0.18 0 0 / 92%) 100%);
+  box-shadow:
+    0 4px 16px oklch(0 0 0 / 20%),
+    0 1px 4px oklch(0 0 0 / 12%),
+    inset 0 1px 0 oklch(1 0 0 / 8%),
+    inset 0 -1px 0 oklch(0 0 0 / 10%);
+  border-color: oklch(1 0 0 / 8%);
+}
+
+.glass-indicator-recording {
+  border-color: oklch(0.577 0.245 27.325 / 30%);
+}
+
+.dark .glass-indicator-recording {
+  border-color: oklch(0.704 0.191 22.216 / 30%);
+}
+
+.glass-indicator-highlight {
+  position: absolute;
+  top: 0;
+  left: 16px;
+  right: 16px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    oklch(1 0 0 / 50%) 30%,
+    oklch(1 0 0 / 70%) 50%,
+    oklch(1 0 0 / 50%) 70%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.dark .glass-indicator-highlight {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    oklch(1 0 0 / 12%) 30%,
+    oklch(1 0 0 / 20%) 50%,
+    oklch(1 0 0 / 12%) 70%,
+    transparent 100%
+  );
+}
+
+.glass-indicator-kbd {
+  font-family: inherit;
+  font-size: 9px;
+  font-weight: 500;
+  padding: 1px 3px;
+  border-radius: 3px;
+  background: oklch(0 0 0 / 4%);
+  border: 1px solid oklch(0 0 0 / 6%);
+}
+
+.dark .glass-indicator-kbd {
+  background: oklch(1 0 0 / 5%);
+  border-color: oklch(1 0 0 / 8%);
+}
+
+/* ── Idea card warmth + hover ────────────────────────── */
+.idea-card {
+  background: oklch(0.995 0.005 80);
+  border-color: oklch(0.92 0.01 70);
+  transition: all 200ms ease;
+}
+
+.idea-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px oklch(0 0 0 / 8%);
+  border-color: oklch(0.85 0.03 70);
+}
+
+.dark .idea-card {
+  background: oklch(0.22 0.008 60);
+  border-color: oklch(1 0 0 / 10%);
+}
+
+.dark .idea-card:hover {
+  box-shadow: 0 4px 12px oklch(0 0 0 / 30%);
+  border-color: oklch(1 0 0 / 18%);
+}
+
+.idea-card-editing {
+  ring: 2px;
+  ring-color: var(--ring);
+}
+
+.idea-card-editing:hover {
+  transform: none;
+}
+
+/* ── View enter animation ────────────────────────────── */
+@keyframes view-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.view-enter {
+  animation: view-fade-in 150ms ease-out;
+}
+
+/* ── Skeleton shimmer ────────────────────────────────── */
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, oklch(0.94 0 0) 25%, oklch(0.97 0 0) 50%, oklch(0.94 0 0) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s infinite;
+  border-radius: 6px;
+}
+
+.dark .skeleton {
+  background: linear-gradient(90deg, oklch(0.25 0 0) 25%, oklch(0.3 0 0) 50%, oklch(0.25 0 0) 75%);
+  background-size: 200% 100%;
+}
+
+/* ── Sticky day header ───────────────────────────────── */
+.day-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: oklch(1 0 0);
+  padding: 6px 0;
+}
+
+.dark .day-header {
+  background: oklch(0.147 0.004 49.25);
+}
+
+/* ── Search result banner ────────────────────────────── */
+.search-active {
+  background: oklch(0.97 0.01 80);
+  border: 1px solid oklch(0.92 0.02 70);
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.dark .search-active {
+  background: oklch(0.22 0.01 60);
+  border-color: oklch(1 0 0 / 12%);
+}
+
+/* ── Filter strip ──────────────────────────────────── */
+.filter-strip {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid oklch(0.94 0.005 60);
+  background: oklch(0.99 0.002 70);
+}
+
+.dark .filter-strip {
+  border-bottom-color: oklch(1 0 0 / 6%);
+  background: oklch(0.16 0.004 49);
+}
+
+/* ── Archive tab switcher ───────────────────────────── */
+.archive-tabs {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 10px;
+  background: oklch(0.95 0.005 70);
+  border: 1px solid oklch(0.92 0.01 70);
+}
+
+.dark .archive-tabs {
+  background: oklch(0.2 0.006 50);
+  border-color: oklch(1 0 0 / 8%);
+}
+
+.archive-tab {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border-radius: 7px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: oklch(0.5 0.01 50);
+  cursor: pointer;
+  transition: all 180ms ease;
+  border: 1px solid transparent;
+  background: transparent;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+.archive-tab:hover:not(.archive-tab-active) {
+  color: oklch(0.35 0.015 50);
+  background: oklch(0.98 0.003 70);
+}
+
+.archive-tab-active {
+  color: oklch(0.25 0.02 50);
+  background: oklch(1 0 0);
+  border-color: oklch(0.9 0.01 70);
+  box-shadow: 0 1px 3px oklch(0 0 0 / 6%);
+}
+
+.dark .archive-tab {
+  color: oklch(0.58 0.01 50);
+}
+
+.dark .archive-tab:hover:not(.archive-tab-active) {
+  color: oklch(0.72 0.01 50);
+  background: oklch(0.24 0.006 50);
+}
+
+.dark .archive-tab-active {
+  color: oklch(0.92 0.01 60);
+  background: oklch(0.28 0.008 55);
+  border-color: oklch(1 0 0 / 12%);
+  box-shadow: 0 1px 3px oklch(0 0 0 / 20%);
+}
+
+.archive-tab-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  background: oklch(0.9 0.02 60);
+  color: oklch(0.4 0.04 55);
+}
+
+.dark .archive-tab-count {
+  background: oklch(0.32 0.015 55);
+  color: oklch(0.75 0.03 65);
+}
+
+.archive-tab-active .archive-tab-count {
+  background: oklch(0.67 0.16 58);
+  color: oklch(0.99 0.02 95);
+}
+
+.dark .archive-tab-active .archive-tab-count {
+  background: oklch(0.65 0.14 60);
+  color: oklch(0.2 0.04 50);
+}
+
+/* ── Archived idea card ────────────────────────────── */
+.idea-card-archived {
+  background: oklch(0.98 0.002 70);
+  border-color: oklch(0.93 0.005 60);
+  opacity: 0.85;
+}
+
+.idea-card-archived:hover {
+  opacity: 1;
+  border-color: oklch(0.88 0.015 65);
+}
+
+.dark .idea-card-archived {
+  background: oklch(0.2 0.005 55);
+  border-color: oklch(1 0 0 / 7%);
+}
+
+.dark .idea-card-archived:hover {
+  border-color: oklch(1 0 0 / 14%);
+}
+
+/* ── Archive empty state ───────────────────────────── */
+.archive-empty-icon {
+  background: oklch(0.94 0.01 60);
+  color: oklch(0.55 0.03 55);
+}
+
+.dark .archive-empty-icon {
+  background: oklch(0.24 0.01 55);
+  color: oklch(0.6 0.03 60);
+}
+
+/* ── Shortcut key badge ──────────────────────────────── */
+.shortcut-key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 6px;
+  border-radius: 6px;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  background: oklch(0.96 0.005 70);
+  border: 1px solid oklch(0.9 0.01 60);
+  color: oklch(0.35 0.02 50);
+  box-shadow: 0 1px 0 oklch(0 0 0 / 5%);
+}
+
+.dark .shortcut-key {
+  background: oklch(0.24 0.008 55);
+  border-color: oklch(1 0 0 / 12%);
+  color: oklch(0.8 0.01 60);
+  box-shadow: 0 1px 0 oklch(0 0 0 / 15%);
+}
+
+/* ── Shortcut recorder pulsing border ────────────────── */
+@keyframes recorder-pulse {
+  0%,
+  100% {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 0 oklch(0.67 0.16 58 / 0%);
+  }
+  50% {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px oklch(0.67 0.16 58 / 15%);
+  }
+}
+
+.shortcut-recorder-recording {
+  animation: recorder-pulse 1.5s ease-in-out infinite;
+  border-color: var(--primary);
+}
+
+/* Tiptap editor placeholder */
+.tiptap p.is-editor-empty:first-child::before {
+  color: var(--color-muted-foreground);
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
