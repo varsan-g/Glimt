@@ -1,0 +1,15 @@
+export const STORAGE_KEYS = {
+  CAPTURE_COUNT: 'glimt:capture-count',
+  LAST_IDEA_ID: 'glimt:last-idea-id',
+  LAST_IDEA_PREVIEW: 'glimt:last-idea-preview',
+  MD_HINT_SHOWN: 'glimt:md-hint-shown',
+  EXPORT_ENABLED: 'glimt:export-enabled',
+  EXPORT_DIR: 'glimt:export-dir',
+  THEME: 'glimt:theme',
+  STT_MODEL: 'glimt:stt-model',
+  AUTO_TITLE_ENABLED: 'glimt:auto-title-enabled',
+  CAPTURE_SHORTCUT: 'glimt:capture-shortcut',
+  RECORD_SHORTCUT: 'glimt:record-shortcut',
+  LAST_UPDATE_CHECK: 'glimt:last-update-check',
+  ADVANCED_OPEN: 'glimt:settings-advanced-open',
+} as const
