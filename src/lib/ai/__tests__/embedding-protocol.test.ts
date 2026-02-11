@@ -48,7 +48,7 @@ beforeAll(async () => {
         return this._onmessage
       }
 
-      postMessage = (...args: unknown[]) => mockPostMessage(...args)
+      postMessage = (...args: unknown[]) => (mockPostMessage as (...a: unknown[]) => void)(...args)
     },
   )
 

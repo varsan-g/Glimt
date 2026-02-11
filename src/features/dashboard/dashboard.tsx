@@ -48,6 +48,7 @@ function useAnimatedPlaceholder(sentences: string[], active: boolean): string {
     function tick() {
       if (cancelled) return
       const sentence = sentences[sentenceIndexRef.current % sentences.length]
+      if (!sentence) return
 
       if (phaseRef.current === 'typing') {
         charIndexRef.current += 1

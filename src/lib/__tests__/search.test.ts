@@ -71,10 +71,10 @@ describe('FTS search', () => {
     const results = await searchIdeasFts('meeting')
 
     expect(results).toHaveLength(2)
-    expect(results[0].id).toBe('fts-1')
-    expect(results[0].text).toBe('meeting notes from standup')
-    expect(results[0].title).toBe('Standup')
-    expect(results[1].id).toBe('fts-2')
+    expect(results[0]!.id).toBe('fts-1')
+    expect(results[0]!.text).toBe('meeting notes from standup')
+    expect(results[0]!.title).toBe('Standup')
+    expect(results[1]!.id).toBe('fts-2')
 
     // Verify the SQL calls the FTS table
     expect(mockSelect).toHaveBeenCalledWith(expect.stringContaining('fts_ideas MATCH'), ['meeting'])
@@ -95,11 +95,11 @@ describe('FTS search', () => {
     const results = await searchIdeasFts('anything')
 
     expect(results).toHaveLength(1)
-    expect(results[0].createdAt).toBe(1000)
-    expect(results[0].updatedAt).toBe(2000)
-    expect(results[0].sourceApp).toBe('browser')
-    expect(results[0].markdownPath).toBe('/export/idea.md')
-    expect(results[0].archived).toBe(true)
+    expect(results[0]!.createdAt).toBe(1000)
+    expect(results[0]!.updatedAt).toBe(2000)
+    expect(results[0]!.sourceApp).toBe('browser')
+    expect(results[0]!.markdownPath).toBe('/export/idea.md')
+    expect(results[0]!.archived).toBe(true)
   })
 })
 
@@ -141,13 +141,13 @@ describe('semantic search', () => {
     const results = await searchIdeas('test query')
 
     expect(results).toHaveLength(3)
-    expect(results[0].idea.id).toBe('close')
-    expect(results[1].idea.id).toBe('medium')
-    expect(results[2].idea.id).toBe('far')
+    expect(results[0]!.idea.id).toBe('close')
+    expect(results[1]!.idea.id).toBe('medium')
+    expect(results[2]!.idea.id).toBe('far')
 
     // Scores should be descending
-    expect(results[0].score).toBeGreaterThan(results[1].score)
-    expect(results[1].score).toBeGreaterThan(results[2].score)
+    expect(results[0]!.score).toBeGreaterThan(results[1]!.score)
+    expect(results[1]!.score).toBeGreaterThan(results[2]!.score)
   })
 
   it('sets source to "semantic" for all results', async () => {
@@ -165,7 +165,7 @@ describe('semantic search', () => {
 
     const results = await searchIdeas('query')
     expect(results).toHaveLength(1)
-    expect(results[0].source).toBe('semantic')
+    expect(results[0]!.source).toBe('semantic')
   })
 })
 

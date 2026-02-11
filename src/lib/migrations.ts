@@ -66,7 +66,7 @@ const MIGRATIONS: readonly Migration[] = [
   },
 ]
 
-export const CURRENT_SCHEMA_VERSION = MIGRATIONS[MIGRATIONS.length - 1].version
+export const CURRENT_SCHEMA_VERSION = MIGRATIONS[MIGRATIONS.length - 1]!.version
 
 export async function runMigrations(db: Database): Promise<void> {
   const rows = await db.select<Array<Record<string, number>>>('PRAGMA user_version')
