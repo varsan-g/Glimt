@@ -1,0 +1,48 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Capability for the main window",
+  "windows": ["main", "capture", "indicator"],
+  "permissions": [
+    "core:default",
+    "global-shortcut:allow-register",
+    "global-shortcut:allow-unregister",
+    "global-shortcut:allow-is-registered",
+    "sql:default",
+    "sql:allow-execute",
+    "sql:allow-select",
+    "fs:default",
+    {
+      "identifier": "fs:allow-write-text-file",
+      "allow": [{ "path": "$APPDATA/**" }]
+    },
+    {
+      "identifier": "fs:allow-exists",
+      "allow": [{ "path": "$APPDATA/**" }]
+    },
+    {
+      "identifier": "fs:allow-mkdir",
+      "allow": [{ "path": "$APPDATA/**" }]
+    },
+    "dialog:default",
+    "dialog:allow-open",
+    "updater:default",
+    "updater:allow-check",
+    "updater:allow-download-and-install",
+    "process:allow-restart",
+    "process:allow-exit",
+    "core:app:allow-version",
+    "core:window:allow-set-size",
+    "core:window:allow-hide",
+    "core:window:allow-show",
+    "core:window:allow-set-focus",
+    "core:window:allow-set-position",
+    "core:window:allow-primary-monitor",
+    "core:window:allow-is-visible",
+    "core:window:allow-start-dragging",
+    "autostart:default",
+    "autostart:allow-enable",
+    "autostart:allow-disable",
+    "autostart:allow-is-enabled"
+  ]
+}
