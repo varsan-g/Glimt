@@ -1,0 +1,94 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  checks:
+    name: Checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+
+      - run: bun install
+
+      - name: Frontend checks
+        run: |
+          bun run lint
+          bun run format:check
+
+      - name: Rust checks
+        run: |
+          cargo fmt --manifest-path src-tauri/Cargo.toml -- --check
+          cargo clippy --manifest-path src-tauri/Cargo.toml -- -D warnings
+
+      - name: Validate tag matches config version
+        run: |
+          CONFIG_VERSION=$(jq -r '.version' src-tauri/tauri.conf.json)
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          if [ "$CONFIG_VERSION" != "$TAG_VERSION" ]; then
+            echo "::error::Tag version ($TAG_VERSION) does not match tauri.conf.json version ($CONFIG_VERSION)"
+            exit 1
+          fi
+
+  build:
+    name: Build (${{ matrix.label }})
+    needs: checks
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - label: Windows
+            runner: windows-latest
+            args: ''
+          - label: macOS (Apple Silicon)
+            runner: macos-latest
+            args: '--target aarch64-apple-darwin'
+          - label: macOS (Intel)
+            runner: macos-latest
+            args: '--target x86_64-apple-darwin'
+          - label: Linux
+            runner: ubuntu-22.04
+            args: ''
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.label == 'macOS (Intel)' && 'x86_64-apple-darwin' || matrix.label == 'macOS (Apple Silicon)' && 'aarch64-apple-darwin' || '' }}
+
+      - name: Install system dependencies (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+
+      - run: bun install
+
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        with:
+          tagName: v__VERSION__
+          releaseName: 'Glimt v__VERSION__'
+          releaseDraft: true
+          includeUpdaterJson: true
+          args: ${{ matrix.args }}
