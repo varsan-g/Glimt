@@ -1,0 +1,91 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
+  "productName": "Glimt",
+  "version": "0.1.0",
+  "identifier": "com.glimt.app",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1420",
+    "beforeDevCommand": "bun run dev",
+    "beforeBuildCommand": "bun run build"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "Glimt",
+        "width": 1024,
+        "height": 700,
+        "minWidth": 480,
+        "minHeight": 400,
+        "center": true,
+        "focus": true,
+        "decorations": true,
+        "resizable": true,
+        "fullscreen": false
+      },
+      {
+        "label": "capture",
+        "title": "Quick Capture",
+        "url": "/",
+        "width": 680,
+        "height": 260,
+        "decorations": false,
+        "transparent": true,
+        "shadow": false,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "visible": false,
+        "resizable": true,
+        "minHeight": 200,
+        "minWidth": 400,
+        "center": true,
+        "focus": true
+      },
+      {
+        "label": "indicator",
+        "title": "Recording",
+        "url": "/",
+        "width": 240,
+        "height": 48,
+        "decorations": false,
+        "transparent": true,
+        "shadow": false,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "visible": false,
+        "resizable": false,
+        "center": false,
+        "focus": false
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' blob: data:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' blob: https://huggingface.co https://*.huggingface.co https://github.com https://objects.githubusercontent.com; worker-src 'self' blob:"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "createUpdaterArtifacts": true,
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "windows": {
+      "nsis": {
+        "installMode": "both"
+      }
+    }
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "",
+      "endpoints": [
+        "https://github.com/OWNER/Glimt/releases/latest/download/latest.json"
+      ]
+    }
+  }
+}
