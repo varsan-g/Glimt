@@ -82,9 +82,9 @@
   },
   "plugins": {
     "updater": {
-      "pubkey": "",
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEI1RTA1QjA1RjFCQjRFQ0EKUldUS1RydnhCVnZndGFkekl0VmtKVFJOMEZnUVlxOHNjMVBORVUxSEl0b0dkRFI2ZVBqTXFhUmMK",
       "endpoints": [
-        "https://github.com/OWNER/Glimt/releases/latest/download/latest.json"
+        "https://github.com/varsan-g/Glimt/releases/latest/download/latest.json"
       ]
     }
   }

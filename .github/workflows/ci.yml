@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [main]
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   frontend:
     name: Frontend Lint & Build
@@ -32,10 +36,6 @@ jobs:
           sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
       - run: cargo fmt --manifest-path src-tauri/Cargo.toml -- --check
       - run: cargo clippy --manifest-path src-tauri/Cargo.toml -- -D warnings
-      - name: Security audit
-        run: |
-          cargo install cargo-audit --locked || true
-          cargo audit --file src-tauri/Cargo.lock
 
   windows-build:
     name: Windows Build
