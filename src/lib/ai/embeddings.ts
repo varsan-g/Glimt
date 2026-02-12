@@ -88,3 +88,26 @@ export function preloadEmbeddingModel(): void {
     modelId: 'Xenova/multilingual-e5-small',
   } satisfies EmbeddingRequest)
 }
+
+export const EMBEDDING_MODEL = 'multilingual-e5-small'
+
+/** Re-embed all ideas with the current model configuration. */
+export async function reembedAllIdeas(): Promise<{ total: number; failed: number }> {
+  const { deleteAllEmbeddings, getAllIdeas, storeEmbedding } = await import('@/lib/db')
+  await deleteAllEmbeddings()
+
+  const ideas = await getAllIdeas()
+  let failed = 0
+
+  for (const idea of ideas) {
+    try {
+      const vector = await embedForStorage(idea.id, idea.text)
+      await storeEmbedding(idea.id, EMBEDDING_MODEL, vector)
+    } catch (error) {
+      console.error(`Failed to re-embed idea ${idea.id}:`, error)
+      failed++
+    }
+  }
+
+  return { total: ideas.length, failed }
+}
