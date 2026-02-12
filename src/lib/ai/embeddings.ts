@@ -93,9 +93,7 @@ export const EMBEDDING_MODEL = 'multilingual-e5-small'
 
 /** Re-embed all ideas with the current model configuration. */
 export async function reembedAllIdeas(): Promise<{ total: number; failed: number }> {
-  const { deleteAllEmbeddings, getAllIdeas, storeEmbedding } = await import('@/lib/db')
-  await deleteAllEmbeddings()
-
+  const { getAllIdeas, storeEmbedding } = await import('@/lib/db')
   const ideas = await getAllIdeas()
   let failed = 0
 
