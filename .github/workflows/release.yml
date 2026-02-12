@@ -63,6 +63,9 @@ jobs:
           - label: Linux
             runner: ubuntu-22.04
             args: ''
+          - label: macOS
+            runner: macos-latest
+            args: '--target aarch64-apple-darwin'
     runs-on: ${{ matrix.runner }}
     steps:
       - uses: actions/checkout@v4
