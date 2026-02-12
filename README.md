@@ -1,8 +1,12 @@
-# Glimt
+<p align="center">
+  <h1 align="center">Glimt</h1>
+  <p align="center">Capture ideas the moment they happen. Entirely on your device.</p>
+</p>
 
-Capture ideas the moment they hit you. `Alt+I` from anywhere, type or talk, done.
-
-Glimt is a desktop app that gets out of your way. Ideas go into a local SQLite database - no cloud, no accounts, no signup. Voice transcription and semantic search run on-device using Transformers.js, so nothing leaves your machine.
+<p align="center">
+  <a href="https://github.com/varsan-g/Glimt/releases"><img src="https://img.shields.io/github/v/release/varsan-g/Glimt?style=flat-square" alt="Version"></a>
+  <img src="https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-informational?style=flat-square" alt="Platforms">
+</p>
 
 <table>
   <tr>
@@ -10,42 +14,39 @@ Glimt is a desktop app that gets out of your way. Ideas go into a local SQLite d
     <td><img src="docs/screenshot-capture.png" alt="Glimt capture window" width="400"></td>
   </tr>
 </table>
-  
+
+Glimt is a lightweight desktop app for capturing ideas in seconds. Press a global hotkey, type or speak your thought, and it's saved instantly to a local database. There are no accounts, no cloud sync, and no external services. Everything stays on your machine, including voice transcription and search.
+
+## Features
+
+- **Instant capture.** Press a hotkey from any app to open a small floating editor. Type your idea and hit Enter. Done in under two seconds.
+- **Voice input.** Speak instead of typing. Transcription runs locally and supports 99 languages. Start recording with a hotkey without even opening the capture window.
+- **Semantic search.** Find ideas by meaning, not just exact words. Search "marketplace for freelancers" and find a note from last month about "Upwork takes too big a cut, there's room for something leaner."
+- **AI-generated titles.** Short, descriptive titles are generated for each idea in the background, entirely on-device.
+- **Markdown export.** Auto-export ideas as `.md` files with YAML frontmatter. Works with Obsidian, Logseq, or any markdown-based tool.
+- **Timeline view.** Browse ideas grouped by day with inline editing, archive, and delete.
+- **Command palette.** Quickly navigate and act with `Ctrl+K`.
+- **System tray.** Minimizes to tray on close. Stays out of your way until you need it.
+- **Customizable shortcuts.** Change the capture and recording hotkeys in settings.
+
 ## Download
 
-Grab the latest installer for your platform from [GitHub Releases](https://github.com/varsan-g/Glimt/releases):
+Grab the latest release for your platform from [GitHub Releases](https://github.com/varsan-g/Glimt/releases):
 
-- **Windows** - `.exe` (NSIS installer)
-- **Linux** - `.deb` or `.AppImage`
+- **Windows** `.exe` installer
+- **Linux** `.deb` or `.AppImage`
+- **macOS** `.dmg` (Apple Silicon)
 
-## What it does
+<details>
+<summary><strong>Build from source</strong></summary>
 
-**Quick capture** - press `Alt+I`, a small floating window appears, type your idea (markdown supported), hit Enter. Gone in under 2 seconds.
+### Prerequisites
 
-**Voice input** - hit the mic button and speak instead of typing, or press `Alt+R` to start recording from anywhere without even opening the capture window. Whisper runs locally and handles 99 languages. You pick the model size in settings (Tiny at 40 MB is the default, but Base and Small are there if you want better accuracy).
+- [Bun](https://bun.sh/)
+- [Rust](https://www.rust-lang.org/tools/install)
+- [Tauri v2 prerequisites](https://v2.tauri.app/start/prerequisites/) for your platform
 
-**Semantic search** - type "gift ideas for gf" and find your note from three months ago that says "she mentioned wanting a bread maker." Search by what you meant, not the exact words you used. Multilingual E5 embeddings handle this, and all the vector math runs in a Web Worker so the UI stays responsive.
-
-**AI titles** - SmolLM2 generates short titles for your ideas in the background. Also on-device.
-
-**Obsidian export** - ideas can auto-export as markdown files with YAML frontmatter. Works with Obsidian, Logseq, whatever reads `.md` files.
-
-Both shortcuts are customizable in settings.
-
-The main window has a timeline grouped by day, inline editing, archive/delete, and a command palette (`Ctrl+K`). Glimt minimizes to the system tray on close and auto-updates via GitHub Releases.
-
-## Stack
-
-Tauri v2 (Rust) + React 19 + TypeScript + Vite. UI is shadcn/ui on Tailwind CSS v4. Editor is TipTap. Storage is SQLite through `tauri-plugin-sql`. AI inference is through @browser-ai/transformers-js running in Web Workers.
-
-Models (all ONNX, all local):
-- **STT:** Xenova/whisper-tiny (~40 MB), with base and small as options (so far)
-- **Embeddings:** Xenova/multilingual-e5-small (100+ languages - so far too)
-- **Titles:** HuggingFaceTB/SmolLM2-360M-Instruct
-
-## Running it
-
-You need [Bun](https://bun.sh/), [Rust](https://www.rust-lang.org/tools/install), and the [Tauri prerequisites](https://v2.tauri.app/start/prerequisites/) for your platform.
+### Steps
 
 ```bash
 git clone https://github.com/varsan-g/glimt.git
@@ -54,49 +55,54 @@ bun install
 bun run tauri dev
 ```
 
-First launch downloads the default AI models (~40 MB). After that it's instant.
+The first launch downloads default AI models (~40 MB). After that, startup is instant.
 
-`bun run tauri build` produces installers in `src-tauri/target/release/bundle/`.
+To produce distributable installers:
 
-## Project layout
-
-```
-src/
-  app.tsx                  Main window (dashboard + settings)
-  capture-app.tsx          Capture window entry point
-  indicator-app.tsx        Recording indicator
-  components/              Shared UI, shadcn primitives
-  features/
-    capture/               Floating capture window
-    dashboard/             Timeline + search
-    settings/              Models, export config, shortcuts
-  workers/
-    embedding.worker.ts    E5 embeddings (off-thread)
-    transcription.worker.ts  Whisper STT (off-thread)
-    title.worker.ts        SmolLM2 title generation (off-thread)
-  lib/
-    db.ts                  SQLite schema + CRUD
-    search.ts              Cosine similarity over embeddings
-    ai/                    Model defs, embedding/whisper services
-
-src-tauri/
-  src/lib.rs               Tray, hotkey, window management
-  tauri.conf.json           Windows, CSP, bundle config
-  capabilities/            Plugin permissions
+```bash
+bun run tauri build
 ```
 
-## Dev commands
+### Dev commands
 
-| Command | What |
-|---------|------|
-| `bun run tauri dev` | Full desktop app |
-| `bun run dev` | Vite only (no Tauri) |
+| Command | Description |
+|---------|-------------|
+| `bun run tauri dev` | Run the full desktop app |
+| `bun run dev` | Vite dev server only (no Tauri) |
 | `bun run lint` | ESLint |
 | `bun run format` | Prettier |
 | `bun run test` | Vitest |
 | `cargo clippy --manifest-path src-tauri/Cargo.toml` | Lint Rust |
 | `cargo fmt --manifest-path src-tauri/Cargo.toml` | Format Rust |
 
+</details>
+
+<details>
+<summary><strong>Tech overview</strong></summary>
+
+Glimt is built with [Tauri v2](https://v2.tauri.app/) (Rust backend, webview frontend), React 19, TypeScript, and Vite. The UI uses shadcn/ui on Tailwind CSS v4, with TipTap as the rich text editor and SQLite for local storage.
+
+All AI inference runs on-device through [Transformers.js](https://huggingface.co/docs/transformers.js) in Web Workers, keeping the UI responsive. No data is sent to external services.
+
+**Models (all ONNX, all local):**
+
+| Purpose | Model | Details |
+|---------|-------|---------|
+| Speech-to-text | Whisper (multiple sizes) | ~40 MB default, larger options for higher accuracy |
+| Embeddings | Multilingual E5 Small | 384 dimensions, 100+ languages |
+| Title generation | SmolLM2-360M-Instruct | Lightweight on-device text generation |
+
+</details>
+
 ## Contributing
 
-Fork, branch, make sure lint and format checks pass (`bun run lint`, `bun run format:check`, `cargo clippy`, `cargo fmt --check`), then open a PR.
+Contributions are welcome. Please ensure lint and format checks pass before opening a pull request:
+
+```bash
+bun run lint
+bun run format:check
+cargo clippy --manifest-path src-tauri/Cargo.toml
+cargo fmt --manifest-path src-tauri/Cargo.toml --check
+```
+
+If you find a bug or have a feature request, [open an issue](https://github.com/varsan-g/Glimt/issues).
