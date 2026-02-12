@@ -14,5 +14,6 @@ Thumbs.db
 .idea/
 .claude/
 .mcp.json
-~/.tauri/
-*.md
+CLAUDE.md
+plan/
+~/
