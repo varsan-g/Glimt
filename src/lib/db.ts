@@ -4,18 +4,23 @@ import { runMigrations } from './migrations'
 import type { Idea, IdeaUpdate } from './types'
 
 let db: Database | null = null
-
-async function getDb(): Promise<Database> {
-  if (!db) {
-    throw new Error('Database not initialized. Call initDb() first.')
-  }
-  return db
-}
+let initPromise: Promise<void> | null = null
 
 export async function initDb(): Promise<void> {
   if (db) return
-  db = await Database.load('sqlite:glimt.db')
-  await runMigrations(db)
+  if (!initPromise) {
+    initPromise = (async () => {
+      db = await Database.load('sqlite:glimt.db')
+      await runMigrations(db)
+    })()
+  }
+  return initPromise
+}
+
+async function getDb(): Promise<Database> {
+  if (!db) await initDb()
+  if (!db) throw new Error('Database failed to initialize.')
+  return db
 }
 
 /** Map a DB row (snake_case columns) to an Idea (camelCase fields). */
@@ -170,4 +175,19 @@ export async function getAllEmbeddings(
 export async function deleteEmbedding(ideaId: string): Promise<void> {
   const conn = await getDb()
   await conn.execute('DELETE FROM embeddings WHERE idea_id = $1', [ideaId])
+}
+
+/** Delete all embeddings (used when re-embedding with a new model/config). */
+export async function deleteAllEmbeddings(): Promise<void> {
+  const conn = await getDb()
+  await conn.execute('DELETE FROM embeddings')
+}
+
+/** Get all ideas regardless of archive status. */
+export async function getAllIdeas(): Promise<Idea[]> {
+  const conn = await getDb()
+  const rows = await conn.select<Record<string, unknown>[]>(
+    'SELECT * FROM ideas ORDER BY created_at DESC',
+  )
+  return rows.map(rowToIdea)
 }
