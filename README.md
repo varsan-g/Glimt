@@ -4,16 +4,19 @@ Capture ideas the moment they hit you. `Alt+I` from anywhere, type or talk, done
 
 Glimt is a desktop app that gets out of your way. Ideas go into a local SQLite database - no cloud, no accounts, no signup. Voice transcription and semantic search run on-device using Transformers.js, so nothing leaves your machine.
 
-![Glimt dashboard](docs/screenshot.png)
-
-![Glimt capture window](docs/screenshot-capture.png)
-
+<table>
+  <tr>
+    <td><img src="docs/screenshot.png" alt="Glimt dashboard" width="600"></td>
+    <td><img src="docs/screenshot-capture.png" alt="Glimt capture window" width="400"></td>
+  </tr>
+</table>
+  
 ## Download
 
 Grab the latest installer for your platform from [GitHub Releases](https://github.com/varsan-g/Glimt/releases):
 
-- **Windows** — `.exe` (NSIS installer)
-- **Linux** — `.deb` or `.AppImage`
+- **Windows** - `.exe` (NSIS installer)
+- **Linux** - `.deb` or `.AppImage`
 
 ## What it does
 
