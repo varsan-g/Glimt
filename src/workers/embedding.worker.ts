@@ -51,8 +51,6 @@ async function loadModel(modelId: string): Promise<FeatureExtractionPipeline> {
       ) => Promise<FeatureExtractionPipeline>
 
       const loaded = await createPipeline('feature-extraction', modelId, {
-        device: 'webgpu',
-        dtype: 'q8',
         progress_callback: (progress: ProgressInfo) => {
           if (progress.status === 'progress') {
             self.postMessage({

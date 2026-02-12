@@ -77,17 +77,10 @@ export async function runMigrations(db: Database): Promise<void> {
   const pending = MIGRATIONS.filter((m) => m.version > currentVersion)
 
   for (const migration of pending) {
-    await db.execute('BEGIN TRANSACTION')
     try {
       await migration.up(db)
       await db.execute(`PRAGMA user_version = ${migration.version}`)
-      await db.execute('COMMIT')
     } catch (error) {
-      try {
-        await db.execute('ROLLBACK')
-      } catch {
-        // Rollback failed — still throw the original migration error
-      }
       throw new Error(
         `Migration V${migration.version} ("${migration.description}") failed: ${error instanceof Error ? error.message : String(error)}`,
       )

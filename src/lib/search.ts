@@ -1,8 +1,6 @@
-import { embedForQuery } from '@/lib/ai/embeddings'
+import { EMBEDDING_MODEL, embedForQuery } from '@/lib/ai/embeddings'
 import { getAllEmbeddings, getIdeasByIds } from '@/lib/db'
 import type { SearchResult } from '@/lib/types'
-
-const EMBEDDING_MODEL = 'multilingual-e5-small'
 
 export function cosineSimilarity(a: number[] | Float32Array, b: number[] | Float32Array): number {
   let dot = 0
@@ -34,7 +32,11 @@ export async function searchIdeas(query: string, topK = 20): Promise<SearchResul
     score: cosineSimilarity(queryVector, vector),
   }))
 
-  const topResults = scored.sort((a, b) => b.score - a.score).slice(0, topK)
+  const MIN_SIMILARITY = 0.3
+  const topResults = scored
+    .filter((r) => r.score >= MIN_SIMILARITY)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, topK)
 
   const topIds = topResults.map((r) => r.ideaId)
   const ideas = await getIdeasByIds(topIds)

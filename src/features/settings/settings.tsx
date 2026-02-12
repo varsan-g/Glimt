@@ -7,7 +7,8 @@ import { Label } from '@/components/ui/label'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Switch } from '@/components/ui/switch'
 import { useAppContext } from '@/lib/app-context'
-import { embeddingLifecycle } from '@/lib/ai/embeddings'
+import { embeddingLifecycle, reembedAllIdeas } from '@/lib/ai/embeddings'
+import { toast } from 'sonner'
 import { titleLifecycle } from '@/lib/ai/title-generation'
 import { whisperLifecycle } from '@/lib/ai/whisper'
 import { useModelLifecycle } from '@/lib/hooks/use-model-lifecycle'
@@ -471,6 +472,22 @@ function AiStatusSection() {
   const embedding = useModelLifecycle(embeddingLifecycle)
   const stt = useModelLifecycle(whisperLifecycle)
   const title = useModelLifecycle(titleLifecycle)
+  const [reembedding, setReembedding] = useState(false)
+
+  const handleReembed = useCallback(async () => {
+    setReembedding(true)
+    try {
+      const { total, failed } = await reembedAllIdeas()
+      const msg =
+        failed > 0 ? `Re-embedded ${total - failed}/${total} ideas` : `Re-embedded ${total} ideas`
+      toast.success(msg)
+    } catch (error) {
+      console.error('Re-embed failed:', error)
+      toast.error('Failed to rebuild embeddings')
+    } finally {
+      setReembedding(false)
+    }
+  }, [])
 
   return (
     <div className="space-y-4">
@@ -486,6 +503,22 @@ function AiStatusSection() {
             <>
               <RiCheckLine className="size-4 text-green-500" />
               <span className="text-green-600 dark:text-green-400">Semantic search active</span>
+              <Button
+                variant="outline"
+                size="sm"
+                className="ml-auto h-7 text-xs"
+                disabled={reembedding}
+                onClick={handleReembed}
+              >
+                {reembedding ? (
+                  <>
+                    <RiLoader2Line className="size-3 animate-spin" />
+                    Rebuilding...
+                  </>
+                ) : (
+                  'Rebuild Embeddings'
+                )}
+              </Button>
             </>
           ) : embedding.state === 'loading' ? (
             <>
