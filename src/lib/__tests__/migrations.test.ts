@@ -96,7 +96,7 @@ describe('runMigrations', () => {
     })
     const db = await getMockDb()
 
-    const error = await runMigrations(db).catch((e: Error) => e)
+    const error = (await runMigrations(db).catch((e: Error) => e)) as Error
     expect(error).toBeInstanceOf(Error)
     expect(error.message).toContain('Migration V1')
     expect(error.message).toContain('disk full')
@@ -120,7 +120,7 @@ describe('runMigrations', () => {
     const db = await getMockDb()
 
     // Should throw the original migration error, not the rollback error
-    const error = await runMigrations(db).catch((e: Error) => e)
+    const error = (await runMigrations(db).catch((e: Error) => e)) as Error
     expect(error).toBeInstanceOf(Error)
     expect(error.message).toContain('schema error')
     expect(error.message).not.toContain('rollback failed')

@@ -48,6 +48,7 @@ function useAnimatedPlaceholder(sentences: string[], active: boolean): string {
     function tick() {
       if (cancelled) return
       const sentence = sentences[sentenceIndexRef.current % sentences.length]
+      if (!sentence) return
 
       if (phaseRef.current === 'typing') {
         charIndexRef.current += 1
@@ -220,11 +221,7 @@ export function Dashboard({ onSettings }: DashboardProps) {
               onFocus={() => setIsSearchFocused(true)}
               onBlur={() => setIsSearchFocused(false)}
               placeholder={
-                showArchive
-                  ? 'Search archived ideas...'
-                  : isSearchFocused
-                    ? 'Search...'
-                    : undefined
+                showArchive ? 'Search archived ideas...' : isSearchFocused ? 'Search...' : undefined
               }
               className="pl-8 pr-8"
             />

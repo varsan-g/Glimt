@@ -66,7 +66,7 @@ describe('generateMarkdown', () => {
 
   it('preserves single quotes in title', () => {
     const md = generateMarkdown(makeIdea({ title: "It's great" }))
-    expect(md).toContain("title: \"It's great\"")
+    expect(md).toContain('title: "It\'s great"')
   })
 
   it('separates frontmatter from body with a blank line', () => {
